@@ -1,4 +1,5 @@
 #--------------------------network/vpc.tf-----------------------
+
 data "aws_availability_zones" "AZs_grtz" {
   state = "available"
 }

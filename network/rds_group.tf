@@ -18,7 +18,3 @@ resource "aws_db_subnet_group" "rds_subnetgrp_grtz" {
 
 
 
-
-
-
-

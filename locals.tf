@@ -33,9 +33,9 @@ locals {
           to          = 3306
           protocol    = "tcp"
           cidr_blocks = [local.vpc_cidr]
-        }      
-      }     
-    }#Private
+        }
+      }
+    } #Private
 
-  }#Security Group
-}#Locals
+  } #Security Group
+}   #Locals
