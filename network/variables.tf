@@ -33,16 +33,36 @@ variable "security_groups_in" {}
 variable "db_subnet_group" {
   type = bool
 }
+#----- Target Group
+variable "tg_protocol" {
+  type    = string
+  default = "HTTP"
+}
 
+variable "tg_port" {
+  type    = number
+  default = 80
+}
 
+variable "alb_healthy_threshold" {
+  type    = number
+  default = 2
+}
 
+variable "alb_unhealthy_threshold" {
+  type    = number
+  default = 2
+}
 
+variable "alb_timeout" {
+  type    = number
+  default = 3
+}
 
-
-
-
-
-
+variable "alb_interval" {
+  type    = number
+  default = 30
+}
 
 
 
