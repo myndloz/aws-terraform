@@ -1,5 +1,4 @@
 #--------------------------root/main.tf-----------------------
-#-------------------------------------------------------------
 
 module "network" {
   source             = "./network"
@@ -24,7 +23,17 @@ module "database" {
   dbpassword             = var.dbpassword
   db_identifier          = "grtz-db"
   skip_db_snapshot       = true
-  db_subnet_group_name   = module.network.rds_subgrp_name[0]
-  vpc_security_group_ids = module.network.security_grp_ids
+  db_subnet_group_name   = module.network.rds_subgrp_name
+  vpc_security_group_ids = module.network.private_sec_grp_ids
 }
 
+module "compute" {
+  source                 = "./compute"
+  count_in               = 1
+  subnet_id              = module.network.public_sub_ids
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = module.network.public_sec_grp_ids
+  volume_size            = 10
+  key_name               = "minty-vm"
+  public_key_path        = "/home/smyndlo/.ssh/myndloz-ssh.key.pub"
+}

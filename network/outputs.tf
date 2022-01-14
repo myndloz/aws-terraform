@@ -8,8 +8,12 @@ output "rds_subgrp_name" {
   value = aws_db_subnet_group.rds_subnetgrp_grtz.*.name
 }
 
-output "security_grp_ids" {
+output "private_sec_grp_ids" {
   value = [aws_security_group.sg_grtz["private"].id]
+}
+
+output "public_sec_grp_ids" {
+  value = [aws_security_group.sg_grtz["public"].id]
 }
 
 output "public_sub_ids" {
