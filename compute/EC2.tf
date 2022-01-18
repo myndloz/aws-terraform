@@ -25,6 +25,7 @@ resource "aws_instance" "ec2_grtz_node" {
   instance_type          = var.instance_type # "t3.micro" stockholm region
   vpc_security_group_ids = var.vpc_security_group_ids
   subnet_id              = var.subnet_id[count.index]
+  iam_instance_profile   = aws_iam_instance_profile.ec2_instance_profile.name
 
   tags = {
     Name = "grtz-node-${random_id.node_id[count.index].dec}"
