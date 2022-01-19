@@ -20,3 +20,6 @@ output "public_sub_ids" {
   value = aws_subnet.public_grtz_subnet.*.id
 }
 
+output "lb_target_group_arn" {
+  value = aws_lb_target_group.tg_alb_grtz.arn
+}

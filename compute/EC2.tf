@@ -12,6 +12,9 @@ data "aws_ami" "server_ami" {
 resource "random_id" "node_id" {
   byte_length = 2
   count       = var.count_in
+  keepers = {
+    key_name = var.key_name #Random_id resource changes value everytime key is changed 
+  }
 }
 
 resource "aws_key_pair" "pc_auth" {
@@ -31,10 +34,24 @@ resource "aws_instance" "ec2_grtz_node" {
     Name = "grtz-node-${random_id.node_id[count.index].dec}"
   }
   key_name = aws_key_pair.pc_auth.id
-  # User_data = ""
+  user_data = templatefile(var.user_data_path,
+    {
+      nodename    = "grtz-ec2-${random_id.node_id[count.index].dec}"
+      db_endpoint = var.db_endpoint
+      dbuser      = var.dbuser
+      dbpass      = var.dbpassword
+      dbname      = var.dbname
+    }
+  )
   root_block_device {
     volume_size = var.volume_size
   }
 } #Resource
 
 
+resource "aws_lb_target_group_attachment" "tg_alb_attachment" {
+  count = var.count_in
+  target_group_arn = var.lb_target_group_arn
+  target_id        = aws_instance.ec2_grtz_node[count.index].id
+  port             = 8000
+}

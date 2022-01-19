@@ -23,17 +23,24 @@ module "database" {
   dbpassword             = var.dbpassword
   db_identifier          = "grtz-db"
   skip_db_snapshot       = true
-  db_subnet_group_name   = module.network.rds_subgrp_name
+  db_subnet_group_name   = module.network.rds_subgrp_name #"${module.network.rds_subgrp_name}"
   vpc_security_group_ids = module.network.private_sec_grp_ids
+  count_in               = 1
 }
 
 module "compute" {
   source                 = "./compute"
-  count_in               = 1
+  count_in               = 2
   subnet_id              = module.network.public_sub_ids
   instance_type          = "t3.micro"
   vpc_security_group_ids = module.network.public_sec_grp_ids
   volume_size            = 10
   key_name               = "minty-vm"
   public_key_path        = "/home/smyndlo/.ssh/myndloz-ssh.key.pub"
+  user_data_path         = "${path.root}/userdata.tpl"
+  dbname                 = var.dbname
+  dbuser                 = var.dbuser
+  dbpassword             = var.dbpassword
+  db_endpoint            = module.database.db_endpoint_id[0]
+  lb_target_group_arn = module.network.lb_target_group_arn
 }

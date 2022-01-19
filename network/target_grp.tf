@@ -32,8 +32,8 @@ resource "aws_lb_listener" "lb_grtz_listener" {
 
 # resource "aws_lb_target_group_attachment" "tg_alb_attachment" {
 #   target_group_arn = aws_lb_target_group.tg_alb_grtz.arn
-#   target_id        = aws_instance.test.id
-#   port             = 80
+#   target_id        = aws_lb.alb_grtz.arn #aws_instance.test.id
+#   port             = 8000
 # }
 
 

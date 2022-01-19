@@ -41,7 +41,7 @@ variable "tg_protocol" {
 
 variable "tg_port" {
   type    = number
-  default = 80
+  default = 8000
 }
 
 variable "alb_healthy_threshold" {
