@@ -15,3 +15,8 @@ output "db_node_id" {
 output "rds_sec_grp" {
   value = module.network.rds_subgrp_name
 }
+
+output "instances" {
+  value = {for x in module.compute.instance_details: x.tags.Name => x.public_ip}
+  sensitive = true
+}

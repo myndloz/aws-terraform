@@ -41,7 +41,7 @@ variable "tg_protocol" {
 
 variable "tg_port" {
   type    = number
-  default = 8000
+  default = 80
 }
 
 variable "alb_healthy_threshold" {
@@ -62,6 +62,11 @@ variable "alb_timeout" {
 variable "alb_interval" {
   type    = number
   default = 30
+}
+
+variable lb_tg_port {
+  type    = number
+  default = 80
 }
 
 

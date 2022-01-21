@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "tg_alb_grtz" {
 
 resource "aws_lb_listener" "lb_grtz_listener" {
   load_balancer_arn = aws_lb.alb_grtz.arn
-  port              = var.tg_port
+  port              = var.lb_tg_port
   protocol          = var.tg_protocol
   #ssl_policy        = "ELBSecurityPolicy-2016-08"
   #certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
