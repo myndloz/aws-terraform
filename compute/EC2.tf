@@ -37,7 +37,7 @@ resource "aws_instance" "ec2_grtz_node" {
   user_data = templatefile(var.user_data_path,
     {
       nodename    = "grtz-ec2-${random_id.node_id[count.index].dec}"
-      db_endpoint = var.db_endpoint
+      db_endpoint = var.db_endpoint[count.index]
       dbuser      = var.dbuser
       dbpass      = var.dbpassword
       dbname      = var.dbname
@@ -53,5 +53,5 @@ resource "aws_lb_target_group_attachment" "tg_alb_attachment" {
   count = var.count_in
   target_group_arn = var.lb_target_group_arn
   target_id        = aws_instance.ec2_grtz_node[count.index].id
-  port             = 8000
+  port             = var.tg_port
 }
